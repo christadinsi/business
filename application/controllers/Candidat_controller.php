@@ -33,24 +33,20 @@ class Candidat_controller  extends CI_Controller
 			'attentes'      => $this->input->post('attentes'),
 			'horaire'      => $this->input->post('horaire')
 		];
-		
-		  // Chargement du modele
-		  $this->load->model('candidat');
 
-		  // Insertion d'informations
-		  $success = $this->candidat->ajouter_candidat($params);
-  
-		  if ($success) {
-			  // Redirection vers la vue message d'inscription
-			  mail('christadinsi@gmail.com','mesage de validation','Felicitationpour votre enregistrement ');
-			  redirect('/Candidat_controller/inscription_reussi');
-			  
-		  } else {
-			  // Redirection vers le formulaire
-			  redirect('/Candidat_controller/inscription_candidat');
-		  }
+		// Chargement du modele
+		$this->load->model('candidat');
 
+		// Insertion d'informations
+		$success = $this->candidat->ajouter_candidat($params);
 
+		if ($success) {
+			// Redirection vers la vue message d'inscription
+			mail($params['email'], 'mesage de validation', 'Felicitationpour votre enregistrement ');
+			redirect('/Candidat_controller/inscription_reussi');
+		} else {
+			// Redirection vers le formulaire
+			redirect('/Candidat_controller/inscription_candidat');
 		}
-	
+	}
 }
